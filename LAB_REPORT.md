@@ -89,18 +89,33 @@ Table 3. What you did with each SonarQube issue in Table 1
 
 | No. in Table 1 | Fixed or kept | Commit, or the reason for keeping it |
 | --- | --- | --- |
-| 1 | | |
+| 1 | Kept | System.out is the console output of a command-line program |
+| 2 | Kept | System.out is the console output of a command-line program |
+| 3 | Kept | System.out is the console output of a command-line program |
+| 4 | Kept | System.out is the console output of a command-line program |
+| 5 | Fixed | 3929cd8 (disappeared after removing the unused Date import) |
+| 6 | Fixed | 3929cd8 |
+| 7 | Fixed | 3929cd8 |
+| 8 | Kept | System.out sends the SMS text, which this program simulates on the console |
+| 9 | Fixed | 3929cd8 |
+| 10 | Kept | System.out is the printed output of the list command |
+| 11 | Kept | System.out is the printed output of the staff command |
+| 12 | Fixed | 3929cd8 |
+| 13 | Fixed | 3929cd8 |
 
-Number of SonarQube issues that remain after your fixes:
+Number of SonarQube issues that remain after your fixes: 8
 
 The two design problems that you fixed
 
 | Design problem (course term) | What you changed | Commit |
 | --- | --- | --- |
-| | | |
-| | | |
+| Content coupling and a public field (Table 2, rows 18 and 19) | Made Parcel.status private, and added getStatus(), markStored() and markPickedUp(), so ParcelService no longer writes the field directly | 3929cd8 |
+| Reaching through an object, Law of Demeter (Table 2, row 20) | Added countFreeLockers() to ParcelService, so Main no longer calls getLockers().stream() | 3929cd8 |
 
 Output of the program after your fixes, for the commands `store P1 6501 2`, `pickup P1 5` and `staff`, and the content of parcels.csv:
+P1 6501 PICKED_UP
+Free lockers: 3
+P1,PICKED_UP
 
 ```text
 
