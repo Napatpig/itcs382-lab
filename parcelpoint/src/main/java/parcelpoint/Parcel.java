@@ -4,7 +4,11 @@ public class Parcel {
     private String code;
     private String studentId;
     private int size;          // 1 = small, 2 = medium, 3 = large
-    public String status;
+    private String status;
+
+    public String getStatus() { return status; }
+    public void markStored() { this.status = "STORED"; }
+    public void markPickedUp() { this.status = "PICKED_UP"; }
 
     public Parcel(String code, String studentId, int size) {
         this.code = code;
