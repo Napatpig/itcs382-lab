@@ -1,6 +1,6 @@
 # Lab Report, Code Quality and Design Quality
 
-Repository URL:
+Repository URL: https://github.com/Napatpig/itcs382-lab
 
 ## Tools
 
@@ -113,12 +113,13 @@ The two design problems that you fixed
 | Reaching through an object, Law of Demeter (Table 2, row 20) | Added countFreeLockers() to ParcelService, so Main no longer calls getLockers().stream() | 3929cd8 |
 
 Output of the program after your fixes, for the commands `store P1 6501 2`, `pickup P1 5` and `staff`, and the content of parcels.csv:
-P1 6501 PICKED_UP
-Free lockers: 3
-P1,PICKED_UP
 
 ```text
+P1 6501 PICKED_UP
+Free lockers: 3
 
+parcels.csv:
+P1,PICKED_UP
 ```
 
 ## Task 4. AI-generated poor and good designs
@@ -148,13 +149,20 @@ ANS.I would extend bikeshare-good. A visitor who pays 4 baht per minute needs on
 ## Task 5. Reflection
 
 5.1 What does SonarQube check, and what does it not check? Answer with examples from this lab.
+ANS. SonarQube checks code-level rules such as probable bugs and smells. In this lab it found the == string comparison (java:S4973), the unclosed FileWriter (java:S2095), the unused import and field (java:S1128, java:S1068) and, in bikeshare-poor, the method that is too complex (java:S3776). It does not check design in the course terms. It reported nothing for Parcel.java, so it missed the public field status and the content coupling that it caused, and it never reported the size codes 1, 2 and 3 (connascence of convention) or the boolean flag in printParcels (control coupling).
 
 5.2 When should you not trust the AI review? Give an example from this lab.
+ANS. I should not trust the AI review for exact details without checking them. In this lab the review gave a wrong line number for Parcel.java in row 23 of Table 2, and I only saw it when I compared with the code. Some labels were also debatable, such as “procedural” against “communicational” for storeParcel, and row 24 was too weak to matter.
 
 5.3 What will you do differently in Project Phase 2 after this lab?
+In Phase 2 I will run SonarQube while I write the code, not at the end, and fix the issues of each file as I go.
 
 ## AI usage declaration
 
 | AI tool and exact model | Purpose | Files or parts that it produced or changed | How you checked its output |
 | --- | --- | --- | --- |
-| | | | |
+| Claude Sonnet 5.5, 25 October 2026 | Explained the lab and lecture, helped with the setup steps | None | Followed the steps and checked each result with the commands of the lab |
+| Claude Sonnet 5.5, 25 October 2026 | AI review of parcelpoint (Prompt A), draft of Table 2 and answers 2.1 to 2.3 | reviews/parcelpoint-review.md, Task 2 of LAB_REPORT.md | Opened the lines that the review gave, compared with the program output of step C2 and with the Problems panel |
+| Claude Sonnet 5.5, 25 October 2026 | Suggested the fixes of Task 3 | ParcelService.java, Parcel.java, Main.java | Ran mvn package and the program after the fixes, and counted the remaining issues in the Problems panel |
+| Claude Sonnet 5.5, 25 October 2026 | Wrote bikeshare-poor (Prompt B) and bikeshare-good (Prompt C), and the AI reviews of both | bikeshare-poor/, bikeshare-good/, reviews/bikeshare-poor-review.md, reviews/bikeshare-good-review.md | Ran mvn package and a few rentals and returns, and counted the SonarQube issues myself.|
+| Claude Sonnet 5.5, 25 October 2026 | Drafted Task 4 answers 4.1 to 4.3 and Task 5 | LAB_REPORT.md | Rewrote them in my own words and compared them with my results |
