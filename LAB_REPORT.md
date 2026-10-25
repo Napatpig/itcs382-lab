@@ -125,22 +125,25 @@ P1,PICKED_UP
 
 | Item | bikeshare-poor | bikeshare-good |
 | --- | --- | --- |
-| Date | | |
-| AI tool and exact model | | |
-| Prompt (B or C as given, or your changed prompt in full) | | |
-| Builds with mvn package (yes or no) | | |
-| Number of classes, interfaces, enums and records | | |
-| SonarQube issues, total | | |
-| SonarQube issues, by rule | | |
-| AI review findings in Check 1 | | |
-| AI review findings in Check 2 | | |
-| Review output file in the reviews folder | | |
+| Date |25 October 2026|25 October 2026|
+| AI tool and exact model |Claude Sonnet 5.5|Claude Sonnet 5.5|
+| Prompt (B or C as given, or your changed prompt in full) | B | C |
+| Builds with mvn package (yes or no) |Yes|Yes|
+| Number of classes, interfaces, enums and records |1|9|
+| SonarQube issues, total |18|2|
+| SonarQube issues, by rule |S106 ×11, S2386 ×5, S3776 ×1, S3358 ×1|S106 ×2|
+| AI review findings in Check 1 |5|4|
+| AI review findings in Check 2 |8|5|
+| Review output file in the reviews folder |reviews/bikeshare-poor-review.md |reviews/bikeshare-good-review.md |
 
-4.1 Did SonarQube report any cohesion or coupling problem in bikeshare-poor? Quote the rule and the message if it did.
+4.1 Did SonarQube report any cohesion or coupling problem in bikeshare-poor? Quote the rule and the message if it did. 
+ANS. SonarQube reported no rule named cohesion or coupling. The closest finding is java:S2386, “Make this member “protected””, five times at Main.java:8-12. It points at the public static arrays, which are the shared data that the other methods change directly, so it is related to common coupling in the course terms. java:S3776, “Refactor this method to reduce its Cognitive Complexity from 33 to the 15 allowed”, at line 40 shows that handle is too complex, which matches the poor cohesion of a method that rents and returns in one body. But SonarQube does not name the course terms, and it did not report the boolean flag (control coupling) or the int member type codes (connascence of convention).
 
-4.2 Did the AI review tell the two versions apart? Give one finding for bikeshare-poor that does not appear for bikeshare-good.
+4.2 Did the AI review tell the two versions apart? Give one finding for bikeshare-poor that does not appear for bikeshare-good. 
+ANS. Yes. In bikeshare-poor the AI found 8 problems in Check 2, and in bikeshare-good it found 5, all marked Note. One finding only for poor is Main.java:8-12: five public static fields that all methods share, which is common coupling. Nothing like it appears for good, where every field is private.
 
 4.3 Which version would you rather extend with a new member type, such as a visitor who pays 4 baht per minute, and why?
+ANS.I would extend bikeshare-good. A visitor who pays 4 baht per minute needs one new line in the enum MemberType, such as VISITOR(4), and feeFor works without a change. In bikeshare-poor I would have to change the int codes and the ternary operators at Main.java:43 and 74, and I could easily miss one of them.
 
 ## Task 5. Reflection
 
